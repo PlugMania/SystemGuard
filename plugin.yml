@@ -1,0 +1,26 @@
+name: SystemGuard
+main: plugin.SystemGuard
+version: 1.00
+
+commands:
+  benchmark:
+    description: Runs a simple benchmark.
+    usage: /<command>
+    permission: systemguard.benchmark
+    permission-message: Permission missing.
+  npetest:
+    description: Throws a NullPointerException.
+    usage: /<command>
+    permission: systemguard.npetest
+    permission-message: Permission missing.
+
+permissions:
+  systemguard.benchmark:
+    description: Gives access to the benchmark command.
+    default: op
+  systemguard.npetest:
+    description: Gives access to the npetest command.
+    default: op
+  systemguard.console:
+    description: Will send you a message when an severe error gets logged.
+    default: false
