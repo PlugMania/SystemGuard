@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SystemGuard extends JavaPlugin implements Listener{
 
 	public File errorFile = null;
+	File benchmarkFile = null;
 	
 	public void onEnable(){
 		errorFile = new File(getDataFolder(), "Errors.txt");
@@ -24,7 +25,17 @@ public class SystemGuard extends JavaPlugin implements Listener{
 				getServer().getPluginManager().disablePlugin(this);
 			}
 		}
-		getServer().getLogger().setFilter(new LogFilter(errorFile));
+		benchmarkFile = new File(getDataFolder(), "Benchmark.txt");
+		if(!benchmarkFile.exists()){
+			try {
+				getDataFolder().mkdir();
+				benchmarkFile.createNewFile();
+			} catch (IOException e) {
+				getServer().getLogger().log(Level.INFO, "SystemGuard wasn't able to create the file Benchmark.txt. This needs to be fixed in order to run SystemGuard. You may create the file by hand. SystemGuard is being disabled...");
+				getServer().getPluginManager().disablePlugin(this);
+			}
+		}
+		getServer().getLogger().setFilter(new LogFilter(getServer(), errorFile));
 	}
 	
 	@SuppressWarnings("null")
